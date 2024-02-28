@@ -3,7 +3,7 @@ Projeto desenvolvido por SAIMON A.S ROCHA
 
 2 - Rode as migrations: php artisan migrate
 
-3 - Rode o seeders: php artisan db:seed --class=MateriasTableSeeder para criar os dados  no bd.
+3 - Rode o seeders: php artisan db:seed --class=MateriasTableSeeder para criar os dados no bd.
     3.1 - Ele irá criar no banco o nome de matérias e com fotos já estabelecidas, para testar por favor add outros tipos de fotos.
 
 4 - Verifique o arquivo .env para confirmar os dados do BD
@@ -12,7 +12,6 @@ Projeto desenvolvido por SAIMON A.S ROCHA
 
 6 - Execute php artisan storage:link para criar a pasta onde as imagens serão alocadas - sem isso você não conseguirá adicionar nem editar as imagens.
 OBS: Existe no public/img as imagens inicias do blog, copie e cole no storage logo após rodar o comando: storage:link
-
 
 PARA NÃO INICIAR O BLOG SEM NADA EXECUTE A INSTRUÇÃO 3
 
