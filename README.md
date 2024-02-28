@@ -1,15 +1,17 @@
 Projeto desenvolvido por SAIMON A.S ROCHA
+1 - Conecte ao seu banco de dados e adicione as configurações no .env
+2 - Rode as migrations: php artisan migrate
+3 - Rode o seeders: php artisan db:seed --class=MateriasTableSeeder para criar os dados  no bd.
+    3.1 - Ele irá criar no banco o nome de matérias e com fotos já estabelecidas, para testar por favor add outros tipos de fotos.
+4 - Verifique o arquivo .env para confirmar os dados do BD
+5 - Certifique-se que tenha um banco criado, coloque as configurações no .env
+6 - Execute php artisan storage:link para criar a pasta onde as imagens serão alocadas - sem isso você não conseguirá adicionar nem editar as imagens.
 
-1 - Rode as migrations.
-2 - Rode o seeders: php artisan db:seed --class=MateriasTableSeeder para criar os dados  no bd.
-    2.1 - Ele irá criar no banco o nome de matérias e com fotos já estabelecidas, para testar por favor add outros tipos de fotos.
-3 - Verifique o arquivo .env para confirmar os dados do BD
-4 - Certifique-se que tenha um banco criado com o nome da configuração do .env
+PARA NÃO INICIAR O BLOG SEM NADA EXECUTE A INSTRUÇÃO 3
 
 Fotos - Font
 1 Fotos foram retiradas do pexels.
 https://www.pexels.com/pt-br/
-
 
 Idéias:
 1° Ao terminar de criar o básico solicitado pensei em adicionar um CRUD de materia onde eu consiga além de mostrar as materias que me possibilite cadastrar, editar e excluir.
