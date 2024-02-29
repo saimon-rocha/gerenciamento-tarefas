@@ -6,4 +6,4 @@
         @include('materia.form')
     {!! Form::close() !!}
 
-    @endsection
+@endsection
