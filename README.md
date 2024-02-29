@@ -34,6 +34,9 @@
                     ou por necessidade.</li>
                 <li>Excluir: Implementei o excluir para deletar uma matéria quando a mesma não for mais útil ou
                     quando passar muito tempo.</li>
+                <li>Testes efetuados: Criação, Edição, Exclusão, abertura da matéria, fechamento, teste de formulario</li>
+                <li>Tomei a decisão de inserir um CRUD para que o teste de edição de imagem, titulo e descrição fosse mais real possivel</li>
+                <li>Idéia que gostaria de ter implementado: Layout mais responsivo</li>
             </ul>
         </li>
         <li>Utilizado o Store do Laravel para lidar com as fotos/img.</li>
