@@ -26,8 +26,7 @@ class MateriaController extends Controller
         $materia->data_de_publicacao = Carbon::parse($materia->data_de_publicacao)->format('d/m/Y');
         return view('materia.materia')->with('materia', $materia);
     }
-
-
+    
     //Direciona para criar materia
     public function create()
     {
