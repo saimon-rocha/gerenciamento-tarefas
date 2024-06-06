@@ -3,110 +3,109 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Prioridades;
+use Livewire\FeedbackModal;
+use App\Models\Setores;
 use App\Models\Tarefas;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Livewire;
 
 class TarefasController extends Controller
 {
     //Página inicial - listagem
     public function index()
     {
-        // $tarefas = Tarefas::orderBy('id')->paginate(2);
-        return view('tarefas.index');
+        // Recupera as tarefas que não foram concluídas
+        $tarefas = Tarefas::whereNull('conclusao')->get();
+        return view('tarefas.index')->with('tarefas', $tarefas);
     }
 
-    public function show($id)
+    public function concluir($id)
     {
+        $tarefa = Tarefas::findOrFail($id);
+        $tarefa->conclusao = Carbon::now();
+        $tarefa->save();
+        return redirect()->route('tarefas.index')->with('sucesso', 'Tarefa concluída com sucesso!');
     }
-    
+
     //Direciona para criar tarefas
     public function create()
     {
-        return view('tarefas.adicionar');
+        // Recupera os setores do banco de dados
+        $setores = Setores::all();
+        $prioridades = Prioridades::all();
+        return view('tarefas.adicionar')->with(['setores' => $setores, 'prioridades' => $prioridades]);
     }
 
     //Cria
     public function store(Request $request)
     {
-        // try {
-        //     DB::beginTransaction();
-        //     $materia = new Materia();
-        //     $materia->titulo             = $request->titulo;
-        //     $materia->descricao          = $request->descricao;
-        //     $materia->texto_completo     = $request->texto_completo;
-        //     $materia->data_de_publicacao = now(); //Data atual
+        try {
+            DB::beginTransaction();
+            $tarefa = new Tarefas();
+            $tarefa->titulo        = $request->titulo;
+            $tarefa->descricao     = $request->descricao;
+            $tarefa->prioridade_id = $request->prioridade;
+            $tarefa->setor_id      = $request->setor;
+            $tarefa->data_termino  = $request->data_termino;
+            $tarefa->data_criacao  = Carbon::now();
+            $tarefa->save();
+            DB::commit();
 
-        //     // Verifica se uma nova imagem foi enviada
-        //     if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
-        //         // Move a imagem para a pasta public/img e salva o caminho no banco de dados
-        //         $caminhoImagem = $request->imagem->store('public/img');
-        //         // Remove "public/" do início do caminho para armazenar no banco de dados
-        //         $caminhoImagem = str_replace('public/', '', $caminhoImagem);
-        //         $materia->imagem = $caminhoImagem;
-        //     }
-
-        //     $materia->save();
-        //     DB::commit();
-
-        //     return redirect()->route('materia.index')->with('sucesso', 'Matéria criada com sucesso!');
-        // } catch (\Exception $ex) {
-        //     DB::rollBack();
-        //     return redirect()->route('materia.index')->with('error', 'Erro ao criar a matéria.');
-        // }
+            return redirect()->route('tarefas.index')->with('sucesso', 'Tarefa criada com sucesso!');
+            $this->mostrarSucesso();
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->route('tarefas.index')->with('error', 'Erro ao criar a tarefa.');
+        }
     }
-
 
     //Edita
     public function edit($id)
     {
-        // $materia = Materia::findOrFail($id);
-        // return view('materia.editar')->with('materia', $materia);
+        $tarefas = Tarefas::findOrFail($id);
+        $prioridades = Prioridades::all();
+        $setores = Setores::all();
+        return view('tarefas.editar', compact('tarefas', 'prioridades', 'setores'));
     }
 
     //Atualizar
     public function update(Request $request, $id)
     {
-        // try {
-        //     // Encontrar a matéria a ser atualizada
-        //     $materia = Materia::findOrFail($id);
-        //     DB::beginTransaction();
+        try {
+            // Encontrar a tarefa a ser atualizada
+            $tarefas = tarefas::findOrFail($id);
+            DB::beginTransaction();
 
-        //     // Atualiza os campos da matéria, exceto a imagem
-        //     $materia->titulo             = $request->titulo;
-        //     $materia->descricao          = $request->descricao;
-        //     $materia->texto_completo     = $request->texto_completo;
-        //     $materia->data_de_publicacao = now(); //Data atual
-
-        //     // Verifica se uma nova imagem foi enviada
-        //     if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
-        //         // Move a imagem para a pasta public/img e salva o caminho no banco de dados
-        //         $caminhoImagem = $request->imagem->store('public/img');
-        //         // Remove "public/" do início do caminho para armazenar no banco de dados
-        //         $caminhoImagem = str_replace('public/', '', $caminhoImagem);
-        //         $materia->imagem = $caminhoImagem;
-        //     }
-
-        //     $materia->save();
-        //     DB::commit();
-        //     return redirect()->route('materia.index')->with('sucesso', 'Matéria atualizada com sucesso!');
-        // } catch (\Exception $ex) {
-        //     DB::rollBack();
-        //     return redirect()->route('materia.index')->with('error', 'Erro ao atualizar a matéria.');
-        // }
+            // Atualiza os campos da tarefa
+            $tarefas->titulo        = $request->titulo;
+            $tarefas->descricao     = $request->descricao;
+            $tarefas->prioridade_id = $request->prioridade;
+            $tarefas->setor_id      = $request->setor;
+            $tarefas->data_termino  = $request->data_termino;
+            $tarefas->data_criacao  = Carbon::now();
+            $tarefas->save();
+            DB::commit();
+            return redirect()->route('tarefas.index')->with('sucesso', 'Tarefa atualizada com sucesso!');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->route('tarefas.index')->with('error', 'Erro ao atualizar a tarefa.');
+        }
     }
 
     //Exclui
     public function destroy(Request $request, $id)
     {
-        // try {
-        //     Materia::findOrFail($id)->delete();
-        //     return redirect()->route('materia.index')->with('sucesso', 'Materia excluída com sucesso!');
-        // } catch (\Exception $ex) {
-        //     DB::rollBack();
-        //     return redirect()->route('materia.index')->with('error', 'Erro ao excluir materia!');
-        // }
+        try {
+            tarefas::findOrFail($id)->delete();
+            return redirect()->route('tarefas.index')->with('sucesso', 'tarefas excluída com sucesso!');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->route('tarefas.index')->with('error', 'Erro ao excluir tarefas!');
+        }
     }
 }

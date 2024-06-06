@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id(); // bigint unsigned
             $table->string('titulo');
             $table->text('descricao');
-            $table->date('data_de_publicacao');
-            $table->date('data_de_termino');
+            $table->date('data_criacao');
+            $table->date('data_termino');
+            $table->date('conclusao')->nullable();
             //
             $table->unsignedBigInteger('prioridade_id');
             $table->unsignedBigInteger('setor_id');
