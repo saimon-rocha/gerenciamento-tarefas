@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\MateriaController;
+use App\Http\Controllers\TarefasController;
 use Illuminate\Support\Facades\Route;
 
 //Rota de Matérias
-Route::get('/',                    [MateriaController::class, 'index'])->name('materia.index');
-Route::get('/materia/cadastrar',   [MateriaController::class, 'create'])->name('materia.create');
-Route::get('/materia/{id}',        [MateriaController::class, 'show'])->name('materia.show');
-Route::post('/materia/salvar',     [MateriaController::class, 'store'])->name('materia.store');
-Route::get('/materia/edit/{id}',   [MateriaController::class, 'edit'])->name('materia.edit');
-Route::put('/materia/update/{id}', [MateriaController::class, 'update'])->name('materia.update');;
-Route::delete('/materia/{id}',     [MateriaController::class, 'destroy'])->name('materia.destroy');
+Route::get('/',                    [TarefasController::class, 'index'])->name('tarefas.index');
+Route::get('/tarefas/cadastrar',   [TarefasController::class, 'create'])->name('tarefas.create');
+Route::get('/tarefas/{id}',        [TarefasController::class, 'show'])->name('tarefas.show');
+Route::post('/tarefas/salvar',     [TarefasController::class, 'store'])->name('tarefas.store');
+Route::get('/tarefas/edit/{id}',   [TarefasController::class, 'edit'])->name('tarefas.edit');
+Route::put('/tarefas/update/{id}', [TarefasController::class, 'update'])->name('tarefas.update');;
+Route::delete('/tarefas/{id}',     [TarefasController::class, 'destroy'])->name('tarefas.destroy');

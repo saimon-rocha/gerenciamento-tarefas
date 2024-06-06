@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('conteudo')
-    {!! Form::model($materia, [
-        'route' => ['materia.update', $materia->id],
+    {!! Form::model($tarefas, [
+        'route' => ['tarefas.update', $tarefas->id],
         'method' => 'PUT',
         'enctype' => 'multipart/form-data',
     ]) !!}
-    @include('materia.form')
+    @include('tarefas.form')
     {!! Form::close() !!}
 @endsection

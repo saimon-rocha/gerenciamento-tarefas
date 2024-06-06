@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('materias', function (Blueprint $table) {
+        Schema::create('prioridades', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo');
-            $table->text('descricao');
-            $table->string('imagem');
-            $table->date('data_de_publicacao');
-            $table->text('texto_completo');
+            $table->string('nome')->unique();
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('materias');
+        Schema::dropIfExists('prioridades');
     }
 };

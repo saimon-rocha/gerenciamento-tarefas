@@ -1,8 +1,0 @@
-.card {
-    height: 100%; /* Define a altura máxima para todos os cards */
-}
-
-.card-body {
-    overflow: hidden; /* Garante que o conteúdo não ultrapasse o card */
-    text-overflow: ellipsis; /* Adiciona reticências (...) para indicar texto truncado */
-}
