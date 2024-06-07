@@ -29,7 +29,7 @@ class TarefasController extends Controller
         $tarefa = Tarefas::findOrFail($id);
         $tarefa->conclusao = Carbon::now();
         $tarefa->save();
-        return redirect()->route('tarefas.index')->with('sucesso', 'Tarefa concluída com sucesso!');
+        return redirect()->route('tarefas.index')->with('sucess', 'Tarefa concluída com sucesso!');
     }
 
     //Direciona para criar tarefas
@@ -55,8 +55,7 @@ class TarefasController extends Controller
             $tarefa->data_criacao  = Carbon::now();
             $tarefa->save();
             DB::commit();
-
-            return redirect()->route('tarefas.index')->with('sucesso', 'Tarefa criada com sucesso!');
+            return redirect()->route('tarefas.index')->with('sucess', 'Tarefa criada com sucesso!');
             $this->mostrarSucesso();
         } catch (\Exception $ex) {
             DB::rollBack();
@@ -90,10 +89,10 @@ class TarefasController extends Controller
             $tarefas->data_criacao  = Carbon::now();
             $tarefas->save();
             DB::commit();
-            return redirect()->route('tarefas.index')->with('sucesso', 'Tarefa atualizada com sucesso!');
+            return redirect()->route('tarefas.index')->with('sucess', 'Tarefa Atualizada com sucesso!');
         } catch (\Exception $ex) {
             DB::rollBack();
-            return redirect()->route('tarefas.index')->with('error', 'Erro ao atualizar a tarefa.');
+            return redirect()->route('tarefas.index')->with('error', 'Erro ao Atualizar a tarefa.');
         }
     }
 
@@ -102,7 +101,7 @@ class TarefasController extends Controller
     {
         try {
             tarefas::findOrFail($id)->delete();
-            return redirect()->route('tarefas.index')->with('sucesso', 'tarefas excluída com sucesso!');
+            return redirect()->route('tarefas.index')->with('sucess', 'Tarefa Excluída com Sucesso!');
         } catch (\Exception $ex) {
             DB::rollBack();
             return redirect()->route('tarefas.index')->with('error', 'Erro ao excluir tarefas!');

@@ -52,10 +52,10 @@
                             <a href="{{ route('tarefas.edit', $tarefa->id) }}" class="btn btn-primary btn-sm" title="editar">
                                 <i class="bi bi-pencil"></i>
                             </a>
-                            <form action="{{ route('tarefas.destroy', $tarefa->id) }}" method="POST">
+                            <form action="{{ route('tarefas.destroy', $tarefa->id) }}" method="POST" id="deleteForm">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" title="excluir">
+                                <button type="button" class="btn btn-danger btn-sm" title="excluir" onclick="showConfirmationModal('Confirmação de Exclusão', 'Tem certeza de que deseja excluir esta tarefa?', function() { document.getElementById('deleteForm').submit(); });">
                                     <i class="bi bi-trash2-fill"></i>
                                 </button>
                             </form>
