@@ -1,0 +1,36 @@
+/* Adicione estas regras de estilo ao seu arquivo CSS */
+
+/* Ajustes gerais para telas menores */
+@media (max-width: 640px) {
+    /* Aumentar o tamanho do logo */
+    .nav-logo img {
+      max-width: 100px;
+    }
+  }
+  
+  /* Ajustes para o menu de navegação */
+  @media (max-width: 768px) {
+    /* Tornar o menu de navegação vertical em telas menores */
+    .nav-menu {
+      display: block;
+      text-align: center;
+    }
+  
+    .nav-menu li {
+      display: inline-block;
+    }
+  
+    .nav-menu a {
+      display: block;
+      padding: 10px;
+    }
+  }
+  
+  /* Ajustes para o modal */
+  @media (max-width: 768px) {
+    /* Centralizar o modal na tela */
+    .modal-dialog {
+      margin: auto;
+    }
+  }
+  

@@ -138,6 +138,5 @@
     <script src="/js/delete.js"></script>
     <script src="/js/alerts.js"></script>
     <script src="/js/leitura.js"></script>
-    <script src="/js/filtro.js"></script>
 </body>
 </html>
