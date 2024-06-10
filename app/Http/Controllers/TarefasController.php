@@ -118,6 +118,7 @@ class TarefasController extends Controller
         }
     }
 
+    //Filtrar
     public function filtrar(Request $request)
     {
         // Query para selecionar tarefas com suas prioridades e setores
